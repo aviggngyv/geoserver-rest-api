@@ -54,6 +54,7 @@ final class GeoServer {
    */
   public function __construct($url, $workspace, Options $options) {
     $this->httpClient = $options->httpClient;
+    $this->httpXmlClient = $options->httpXmlClient;
     $this->messageFactory = $options->messageFactory;
     $this->routes = new Routes($url);
     $this->serializer = $options->serializer;
@@ -580,7 +581,7 @@ final class GeoServer {
    */
   public function getUser() {
     $route = $this->routes->url('security/usergroup/users/');
-    $response = $this->get($route);
+    $response = $this->get($route, NULL, ['useXml' => 'yes']);
     return $response;
   }
 

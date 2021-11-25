@@ -48,6 +48,11 @@ final class Options
     public $httpClient;
 
     /**
+     * @var HttpXmlClient
+     */
+    public $httpXmlClient;
+
+    /**
      * @var MessageFactory
      */
     public $messageFactory;
@@ -77,6 +82,16 @@ final class Options
                     'User-Agent' => 'OneOffTech GeoServer Client',
                     'Content-Type' => self::FORMAT_JSON,
                     'Accept' => self::FORMAT_JSON,
+                ]),
+            ]
+        );
+
+        $this->httpXmlClient = new PluginClient(
+            HttpClientDiscovery::find(),
+            [
+                new AuthenticationPlugin($this->authentication),
+                new HeaderDefaultsPlugin([
+                    'User-Agent' => 'OneOffTech GeoServer Client',
                 ]),
             ]
         );

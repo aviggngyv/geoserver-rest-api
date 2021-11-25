@@ -42,6 +42,11 @@ trait InteractsWithHttp
     private $httpClient;
 
     /**
+     * @var HttpXmlClient
+     */
+    private $httpXmlClient;
+
+    /**
      * @var MessageFactory
      */
     private $messageFactory;
@@ -121,7 +126,12 @@ trait InteractsWithHttp
      */
     private function handleRequest($request)
     {
-        $response = $this->httpClient->sendRequest($request);
+        if ($request->hasHeader('useXml') && in_array('yes', $request->getHeader('useXml'))) {
+          $response = $this->httpXmlClient->sendRequest($request);
+        }
+        else {
+          $response = $this->httpClient->sendRequest($request);
+        }
 
         $this->checkResponseError($response);
 
