@@ -106,7 +106,7 @@ final class GeoServer {
    */
   public function datastores() {
     $route = $this->routes->url("workspaces/$this->workspace/datastores");
-    $response = $this->get($route, DataStoreResponse::class);
+    $response = $this->get($route);
     return $response->dataStores;
   }
 
