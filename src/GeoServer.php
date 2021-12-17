@@ -256,7 +256,7 @@ final class GeoServer {
     // we need to rename all files contained in it
     if ($file->format === GeoFormat::SHAPEFILE_ZIP && $file->wasRenamed()) {
       $contentList = ZipReader::contentList($file->path());
-      $nameWithoutExtension = rtrim($file->name, $file->extension);
+      $nameWithoutExtension = basename($file->name, '.' . $file->extension);
 
       // check the content if modifications are required
       if (!in_array("$nameWithoutExtension.shp", $contentList)) {
